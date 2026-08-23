@@ -98,6 +98,6 @@ jobs:
 
       - name: Deploy to PROD
         run: |
-          echo "Deploying application to PROD..."
+          echo "Deploying ${{ vars.APP_NAME }} to PROD..."
           ls -R deploy/
           echo "PROD deployment successful!"
