@@ -4,15 +4,22 @@ on:
   push:
 
 jobs:
-  hello:
+  App_test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Say Hello
-        run: echo "Hello DevOps!"
+      -name: Python setup
+        uses: actions/setup-python@v5
+         with:
+            python-version:'3.12'
+     # - name: Say Hello
+     #   run: echo "Hello DevOps!"
 
-      - name: Show system information
-        run: uname -a
+
+      - name: Run tests
+        run: |
+           python -m pip install pytest
+            pytest
