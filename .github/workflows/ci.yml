@@ -1,7 +1,7 @@
 name: CI-CD
 
 permissions:
-  id-token:write
+  id-token: write
   contents: read
 on:
   push:
