@@ -1,9 +1,13 @@
-name: My First CI
+name: CI-CD
 
 on:
   push:
 
 jobs:
+
+  # =========================
+  # CI JOB
+  # =========================
   test:
     runs-on: ubuntu-latest
 
@@ -20,16 +24,40 @@ jobs:
         run: |
           python -m pip install pytest
           pytest
-      
+
       - name: Build application
         run: |
           mkdir build
           cp app.py build/
           cp test_app.py build/
-    
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with: 
-           name: my_application
-           path: build/
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-application
+          path: build/
+
+
+  # =========================
+  # CD JOB
+  # =========================
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-application
+          path: deploy/
+
+      - name: Show deployment files
+        run: |
+          echo "Files ready for deployment:"
+          ls -R deploy/
+
+      - name: Deploy application
+        run: |
+          echo "🚀 Deploying application..."
+          echo "Deployment successful!"
