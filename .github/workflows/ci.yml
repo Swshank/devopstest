@@ -28,7 +28,7 @@ jobs:
           cp test_app.py build/
     
       - name: Upload artifacts
-        uses: actions/uppload-artifact@v4
+        uses: actions/upload-artifact@v4
         with: 
            name: my_application
            path: build/
