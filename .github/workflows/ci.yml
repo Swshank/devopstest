@@ -6,7 +6,7 @@ on:
 jobs:
 
   # =========================
-  # CI JOB
+  # CI
   # =========================
   test:
     runs-on: ubuntu-latest
@@ -39,9 +39,9 @@ jobs:
 
 
   # =========================
-  # CD JOB
+  # DEV
   # =========================
-  deploy:
+  deploy-dev:
     needs: test
     runs-on: ubuntu-latest
 
@@ -52,12 +52,50 @@ jobs:
           name: my-application
           path: deploy/
 
-      - name: Show deployment files
+      - name: Deploy to DEV
         run: |
-          echo "Files ready for deployment:"
+          echo "Deploying application to DEV..."
           ls -R deploy/
+          echo "DEV deployment successful!"
 
-      - name: Deploy application
+
+  # =========================
+  # UAT
+  # =========================
+  deploy-uat:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-application
+          path: deploy/
+
+      - name: Deploy to UAT
         run: |
-          echo "🚀 Deploying application..."
-          echo "Deployment successful!"
+          echo "Deploying application to UAT..."
+          ls -R deploy/
+          echo "UAT deployment successful!"
+
+
+  # =========================
+  # PROD
+  # =========================
+  deploy-prod:
+    needs: deploy-uat
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-application
+          path: deploy/
+
+      - name: Deploy to PROD
+        run: |
+          echo "Deploying application to PROD..."
+          ls -R deploy/
+          echo "PROD deployment successful!"
