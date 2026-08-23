@@ -86,6 +86,8 @@ jobs:
   deploy-prod:
     needs: deploy-uat
     runs-on: ubuntu-latest
+    environment: 
+       name: PROD
 
     steps:
       - name: Download artifact
