@@ -107,8 +107,8 @@ jobs:
           name: my-application
           path: deploy/
 
-      - name: Deploy to PROD
-        run: |
-          echo "Deploying ${{ vars.APP_NAME }} to PROD..."
-          ls -R deploy/
-          echo "PROD deployment successful!"
+      - name: Deploy to Azure App service
+        uses: azure/webapps-deploy@v3
+        with:
+            app-name:  ${{ vars.APP_NAME }}
+            package: ./deploy
