@@ -103,8 +103,9 @@ jobs:
           name: my-application
           path: deploy/
 
-      - name: Deploy to Azure App service
+      - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
-            app-name:  ${{ vars.APP_NAME }}
-            package: ./deploy
+           app-name: ${{ vars.APP_NAME }}
+           resource-group-name: rg-devops-learning
+           package: ./deploy
