@@ -106,7 +106,7 @@ jobs:
 
           echo "=== App Service ==="
           az webapp show \
-            --name Swshank \
+            --name Sawshank \
             --resource-group rg-devops-learning \
             --query "{name:name, resourceGroup:resourceGroup, state:state}" \
             -o table
